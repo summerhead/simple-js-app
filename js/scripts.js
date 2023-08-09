@@ -4,10 +4,11 @@ let pokemonList = [
     { name: 'Squirtle', height: 5, types: ['water'] }
 ];
 
-for (let i = 0; i < pokemonList.length; i++) {
-    document.write('<p>' + pokemonList[i].name + ' ' + '(height:' + ' ' + pokemonList[i].height + ')' + '</p>');
-    
-    if (pokemonList[i].height > 6) {
+function pokemonDetails(pokemon) {
+    document.write('<p>' + pokemon.name + ' ' + '(height:' + ' ' + pokemon.height + ')' + '</p>');
+    if (pokemon.height > 6) {
         document.write("- Wow, that's big!");
     }
 }
+
+pokemonList.forEach(pokemonDetails);
