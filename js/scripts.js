@@ -22,13 +22,7 @@ let pokemonRepository = (function() {
         button.classList.add("button-class");
         listItem.appendChild(button); // Append the button to the list item as its child
         pokemonList.appendChild(listItem); // Append the list item to the unordered list as its child
-        eventListen(button,pokemon);
-    };
-
-    function eventListen(button,pokemon)  { // Add the event listener to the newly created button
-        button.addEventListener('click', function(pokemon) {
-            showDetails(pokemon);
-        });
+        button.addEventListener('click', () => showDetails(pokemon));
     };
 
     function showDetails(pokemon) {
