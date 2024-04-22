@@ -1,0 +1,16 @@
+body {
+    font-family: "Press Start 2P", system-ui;
+    font-weight: 400;
+    font-style: normal;
+    background-color: #AD734A;
+}
+
+main .row div {
+  background-color: #FFEFFF;
+  border: 1px solid black;
+  padding: 0;
+}
+
+.container {
+    padding: 0;
+}

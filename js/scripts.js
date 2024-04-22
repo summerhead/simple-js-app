@@ -1,6 +1,6 @@
 let pokemonRepository = (function () {
     let pokemonList = [];
-    let apiUrl = "https://pokeapi.co/api/v2/pokemon/?limit=30";
+    let apiUrl = "https://pokeapi.co/api/v2/pokemon/?limit=151";
     
     function add(pokemon) {
         if (
@@ -21,22 +21,23 @@ let pokemonRepository = (function () {
     function addListItem(pokemon) {
         pokemonRepository.loadDetails(pokemon).then(function () {
             let $row = $(".row");
-            let $card = $('<div class="card" style="width:400px"></div>');
+            let $card = $('<div class="card" style="width:100%"></div>');
             let $image = $(
                 '<img class="card-img-top" alt="Card image" style="width:20%" />'
                 );
                 $image.attr("src", pokemon.imageUrlFront);
                 let $cardBody = $('<div class="card-body"></div>');
-                let $cardTitle = $("<h4 class='card-title' >" + pokemon.name + "</h4>");
+                let $cardTitle = $("<h4 class='card-title' style='text-transform: uppercase'>" + pokemon.name + "</h4>");
                 let $seeProfile = $(
-                    '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">See Profile</button>'
+                    "<button type='button' class='btn btn-link btn-block text-left text-decoration-none' data-toggle='modal' data-target='#exampleModal' style='text-transform: uppercase'>" 
+                    + "<img src='" + pokemon.imageUrlFront + "'/>" + pokemon.name + "</button>"
                     );
                     
                     $row.append($card);
                     //Append image to each card
-                    $card.append($image);
+                    //$card.append($image);
                     $card.append($cardBody);
-                    $cardBody.append($cardTitle);
+                    //$cardBody.append($cardTitle);
                     $cardBody.append($seeProfile);
                     
                     $seeProfile.on("click", function (event) {
@@ -82,42 +83,42 @@ let pokemonRepository = (function () {
           for (let i = 0; i < details.types.length; i++) {
             item.types.push(details.types[i].type.name);
           };
-          if (item.types.includes("Normal")) {
-            $(".modal-header").css("color", "brown");
-          } else if (item.types.includes("Fire")) {
-            $(".modal-header").css("color", "red");
-          } else if (item.types.includes("Water")) {
-            $(".modal-header").css("color", "blue");
-          } else if (item.types.includes("Electric")) {
-            $(".modal-header").css("color", "yellow");
-          } else if (item.types.includes("Grass")) {
-            $(".modal-header").css("color", "green");
-          } else if (item.types.includes("Ice")) {
-            $(".modal-header").css("color", "#A2DDFB");
-          } else if (item.types.includes("Fighting")) {
-            $(".modal-header").css("color", "#8E240F");
-          } else if (item.types.includes("Poison")) {
-            $(".modal-header").css("color", "purple");
-          } else if (item.types.includes("Ground")) {
-            $(".modal-header").css("color", "#DBB326");
-          } else if (item.types.includes("Flying")) {
-            $(".modal-header").css("color", "#B0E6E5");
-          } else if (item.types.includes("Psychic")) {
-            $(".modal-header").css("color", "#A052AF");
-          } else if (item.types.includes("Bug")) {
-            $(".modal-header").css("color", "#8F996D");
-          } else if (item.types.includes("Rock")) {
-            $(".modal-header").css("color", "#C1C3BA");          
-          } else if (item.types.includes("Ghost")) {
-            $(".modal-header").css("color", "#B5AABA");
-          } else if (item.types.includes("Dragon")) {
-            $(".modal-header").css("color", "#D8532E");
-          } else if (item.types.includes("Dark")) {
-            $(".modal-header").css("color", "#431406");
-          } else if (item.types.includes("Steel")) {
-            $(".modal-header").css("color", "#676565");
-          } else if (item.types.includes("Fairy")) {
-            $(".modal-header").css("color", "pink");
+          if (item.types.includes("normal")) {
+            $(".modal-content").css("background-color", "#CCC3B5");
+          } else if (item.types.includes("fire")) {
+            $(".modal-content").css("background-color", "#E79d94");
+          } else if (item.types.includes("water")) {
+            $(".modal-content").css("background-color", "#B7D2F0");
+          } else if (item.types.includes("electric")) {
+            $(".modal-content").css("background-color", "#F3F4AB");
+          } else if (item.types.includes("grass")) {
+            $(".modal-content").css("background-color", "#8FBAA2");
+          } else if (item.types.includes("ice")) {
+            $(".modal-content").css("background-color", "#D7E6EC");
+          } else if (item.types.includes("fighting")) {
+            $(".modal-content").css("background-color", "#E2BDC4");
+          } else if (item.types.includes("poison")) {
+            $(".modal-content").css("background-color", "#D298F0");
+          } else if (item.types.includes("ground")) {
+            $(".modal-content").css("background-color", "#EBE1BA");
+          } else if (item.types.includes("flying")) {
+            $(".modal-content").css("background-color", "#D4E7E7");
+          } else if (item.types.includes("psychic")) {
+            $(".modal-content").css("background-color", "#C1A2C1");
+          } else if (item.types.includes("bug")) {
+            $(".modal-content").css("background-color", "#C5D9C2");
+          } else if (item.types.includes("rock")) {
+            $(".modal-content").css("background-color", "#EFEFEF");        
+          } else if (item.types.includes("ghost")) {
+            $(".modal-content").css("background-color", "#E0DCD9");
+          } else if (item.types.includes("dragon")) {
+            $(".modal-content").css("background-color", "#F6C19C");
+          } else if (item.types.includes("dark")) {
+            $(".modal-content").css("background-color", "#85837B");
+          } else if (item.types.includes("steel")) {
+            $(".modal-content").css("background-color", "#676565");
+          } else if (item.types.includes("fairy")) {
+            $(".modal-content").css("background-color", "#F5D6DE");
           }
           //Loop for the abilities of pokemon
           item.abilities = [];
@@ -141,20 +142,20 @@ let pokemonRepository = (function () {
       modalBody.empty();
   
       //Create name element in modal content
-      let nameElement = $("<h1>" + item.name + "</h1>");
+      let nameElement = $("<h1 style='text-transform: uppercase'>" + item.name + "</h1>");
       //Create image element modal content
       let imageElementFront = $('<img class="modal-img" style="width:50%">');
       imageElementFront.attr("src", item.imageUrlFront);
       let imageElementBack = $('<img class="modal-img" style="width:50%">');
       imageElementBack.attr("src", item.imageUrlBack);
       //Create height element in modal content
-      let heightElement = $("<p>" + "Height : " + item.height + "</p>");
+      let heightElement = $("<p style='text-transform: uppercase'>" + "Height : " + item.height + "</p>");
       //Create weight element in modal content
-      let weightElement = $("<p>" + "Weight : " + item.weight + "</p>");
+      let weightElement = $("<p style='text-transform: uppercase'>" + "Weight : " + item.weight + "</p>");
       //Create type element in modal content
-      let typesElement = $("<p>" + "Types : " + item.types + "</p>");
+      let typesElement = $("<p style='text-transform: uppercase'>" + "Types : " + item.types + "</p>");
       //Create abilities element in modal content
-      let abilitiesElement = $("<p>" + "Abilities : " + item.abilities + "</p>");
+      let abilitiesElement = $("<p style='text-transform: uppercase'>" + "Abilities : " + item.abilities + "</p>");
   
       modalTitle.append(nameElement);
       modalBody.append(imageElementFront);
@@ -181,3 +182,4 @@ let pokemonRepository = (function () {
       pokemonRepository.addListItem(pokemon);
     });
   });
+
