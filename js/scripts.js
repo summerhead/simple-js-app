@@ -18,29 +18,29 @@ let pokemonRepository = (function () {
         return pokemonList;
     }
 
+    function clear() {
+      document.querySelector(".row").innerHTML = "";
+    }
+
     function addListItem(pokemon) {
         pokemonRepository.loadDetails(pokemon).then(function () {
             let $row = $(".row");
-            let $card = $('<div class="card" style="width:100%"></div>');
+            let $card = $("<div class=\"card\" style=\"width:100%\"></div>");
             let $image = $(
-                '<img class="card-img-top" alt="Card image" style="width:20%" />'
+                "<img class=\"card-img-top\" alt=\"Card image\" style=\"width:20%\" />"
                 );
                 $image.attr("src", pokemon.imageUrlFront);
-                let $cardBody = $('<div class="card-body"></div>');
-                let $cardTitle = $("<h4 class='card-title' style='text-transform: uppercase'>" + pokemon.name + "</h4>");
+                let $cardBody = $("<div class=\"card-body\"></div>");
                 let $seeProfile = $(
                     "<button type='button' class='btn btn-link btn-block text-left text-decoration-none' data-toggle='modal' data-target='#exampleModal' style='text-transform: uppercase'>" 
                     + "<img src='" + pokemon.imageUrlFront + "'/>" + pokemon.name + "</button>"
                     );
                     
                     $row.append($card);
-                    //Append image to each card
-                    //$card.append($image);
                     $card.append($cardBody);
-                    //$cardBody.append($cardTitle);
                     $cardBody.append($seeProfile);
                     
-                    $seeProfile.on("click", function (event) {
+                    $seeProfile.on("click", function () {
                         showDetails(pokemon);
                     });
                 });
@@ -48,7 +48,6 @@ let pokemonRepository = (function () {
 
     function showDetails(item) {
         pokemonRepository.loadDetails(item).then(function () {
-            console.log(item);
             showModal(item);
         });
     }
@@ -62,7 +61,6 @@ let pokemonRepository = (function () {
                     detailsUrl: item.url,
                 };
                 add(pokemon);
-                console.log(pokemon);
             });
         })
         .catch(function (e) {
@@ -82,7 +80,7 @@ let pokemonRepository = (function () {
           item.types = [];
           for (let i = 0; i < details.types.length; i++) {
             item.types.push(details.types[i].type.name);
-          };
+          }
           if (item.types.includes("normal")) {
             $(".modal-content").css("background-color", "#CCC3B5");
           } else if (item.types.includes("fire")) {
@@ -124,7 +122,7 @@ let pokemonRepository = (function () {
           item.abilities = [];
           for (let i = 0; i < details.abilities.length; i++) {
             item.abilities.push(details.abilities[i].ability.name);
-        };
+        }
         item.weight = details.weight;
     })
     .catch(function (e) {
@@ -136,7 +134,6 @@ let pokemonRepository = (function () {
     function showModal(item) {
       let modalBody = $(".modal-body");
       let modalTitle = $(".modal-title");
-      let modalHeader = $(".modal-header");
 
       modalTitle.empty();
       modalBody.empty();
@@ -144,9 +141,9 @@ let pokemonRepository = (function () {
       //Create name element in modal content
       let nameElement = $("<h1 style='text-transform: uppercase'>" + item.name + "</h1>");
       //Create image element modal content
-      let imageElementFront = $('<img class="modal-img" style="width:50%">');
+      let imageElementFront = $("<img class=\"modal-img\" style=\"width:50%\">");
       imageElementFront.attr("src", item.imageUrlFront);
-      let imageElementBack = $('<img class="modal-img" style="width:50%">');
+      let imageElementBack = $("<img class=\"modal-img\" style=\"width:50%\">");
       imageElementBack.attr("src", item.imageUrlBack);
       //Create height element in modal content
       let heightElement = $("<p style='text-transform: uppercase'>" + "Height : " + item.height + "</p>");
@@ -173,6 +170,7 @@ let pokemonRepository = (function () {
       loadList: loadList,
       loadDetails: loadDetails,
       showModal: showModal,
+      clear: clear,
     };
   })();
 
@@ -181,5 +179,18 @@ let pokemonRepository = (function () {
     pokemonRepository.getAll().forEach(function (pokemon) {
       pokemonRepository.addListItem(pokemon);
     });
+    document.querySelector("#search").addEventListener("input", (event) => {
+      const searchTerm = event.target.value;
+
+      pokemonRepository.clear();
+
+      pokemonRepository.getAll().forEach(function (pokemon) {
+        if (pokemon.name.includes(searchTerm)){
+          pokemonRepository.addListItem(pokemon);
+
+        }
+
+      });
+    })
   });
 
